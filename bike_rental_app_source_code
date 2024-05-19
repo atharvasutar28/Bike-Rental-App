@@ -1,0 +1,62 @@
+class BikeRental():
+    
+    def __init__(self, stock = 100):
+        self.stock = stock
+        print("Welcome to Rental Bike Shop")
+    
+    def displaystock(self):
+        print("Stock Avialable:", self.stock)
+
+
+class Customer(BikeRental):
+    
+    def __init__(self, number_of_bikes, rentalBasis, number_of_days_or_weeks):
+        super().__init__()
+        self.number_of_bikes = number_of_bikes
+        self.rentalBasis = rentalBasis
+        self.number_of_days_or_weeks = number_of_days_or_weeks
+        
+    def rentBike(self):
+        if self.number_of_bikes <= 0:
+            print("Number of Bikes should be Positive.")
+        elif self.number_of_bikes > self.stock:
+            print("Only", self.stock, "bikes available to rent.")
+        else:
+            print(self.number_of_bikes, "Bikes rented by customers.")
+            self.stock = self.stock - self.number_of_bikes
+            
+    def returnBike(self):
+        bill = 0
+        if self.rentalBasis == 'Daily':
+            bill = self.number_of_bikes * (self.number_of_days_or_weeks * 100)
+            if self.number_of_bikes >= 3 and self.number_of_bikes <= 5:
+                print("You are Eligible for Family Rental Promotion of 30% Discount!")
+                discount = bill 
+                discount = discount * (30 / 100)
+                bill -= discount
+        elif self.rentalBasis == 'Weekly':
+            bill = self.number_of_bikes * (self.number_of_days_or_weeks * 500)
+            if self.number_of_bikes >= 3 and self.number_of_bikes <= 5:
+                print("You are Eligible for Family Rental Promotion of 30% Discount!")
+                discount = bill 
+                discount = discount * (30 / 100)
+                bill -= discount
+        return str(bill) + ' Rs'
+
+
+customer_1 = Customer(2,'Daily',5)
+
+
+customer_1.rentBike()
+
+
+customer_1.returnBike()
+
+
+customer_2 = Customer(1,'Weekly',3)
+
+
+customer_2.rentBike()
+
+
+customer_2.returnBike()
